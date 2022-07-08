@@ -1,23 +1,18 @@
 package ru.netology.page;
 
-import ru.netology.data.DataHelper;
+import ru.netology.data.UserData;
 
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import static com.codeborne.selenide.Selenide.$;
 
 public class VerificationPage {
 
-    private SelenideElement codeField = $("[data-test-id='code'] input");
-    private SelenideElement verifyContinueButton = $("[data-test-id='action-verify']");
+    private SelenideElement codeInput = $("[data-test-id='code'] input");
+    private SelenideElement verifyButton = $("[data-test-id='action-verify']");
 
-    public VerificationPage() {
-        codeField.shouldBe(Condition.visible);
-    }
-
-    public DashboardPage validVerify(DataHelper user) {
-        codeField.setValue(user.getVerificationCode());
-        verifyContinueButton.click();
+    public DashboardPage verify(UserData user) {
+        codeInput.setValue(user.getVerifyCode());
+        verifyButton.click();
         return new DashboardPage();
     }
 }
