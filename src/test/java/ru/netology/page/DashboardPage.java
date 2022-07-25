@@ -2,33 +2,41 @@ package ru.netology.page;
 
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
+import lombok.val;
 
-import static com.codeborne.selenide.Selenide.*;
-import static java.lang.Integer.valueOf;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$$;
 
 public class DashboardPage {
 
-    private ElementsCollection cards = $$x("//li[@class='list__item']/div");
-    private ElementsCollection actionButton = $$x("//button[@data-test-id='action-deposit']");
-    private SelenideElement reloadButton = $x("//button[@data-test-id='action-reload']");
-    private SelenideElement errorNotification = $x("//div[@data-test-id='error-notification']");
+    private ElementsCollection cards = $$(".list__item div");
+    private ElementsCollection actionButton = $$("[data-test-id='action-deposit'] .button__text");
+    private SelenideElement refreshButton = $("[data-test-id='action-reload'] .button__text");
+    private final String balanceStart = "баланс: ";
+    private final String balanceFinish = " р.";
 
-    public TransferPage transferClick(int indexCardTo) {
+    public void Dashboard() {
+    }
+
+    public int getFirstCardBalance() {
+        val text = cards.first().text();
+        return extractBalance(text);
+    }
+
+    public int getSecondCardBalance() {
+        val text = cards.last().text();
+        return extractBalance(text);
+    }
+
+    private int extractBalance(String text) {
+        val start = text.indexOf(balanceStart);
+        val finish = text.indexOf(balanceFinish);
+        val value = text.substring(start + balanceStart.length(), finish);
+        return Integer.parseInt(value);
+    }
+
+    public TransferPage chooseCardTo(int indexCardTo) {
         actionButton.get(indexCardTo).click();
         return new TransferPage();
-    }
-
-    public int getBalance(int index) {
-        reloadButton.click();
-        String[] card = cards.get(index).toString().split(" ");
-        int balance = valueOf(card[6]);
-        return balance;
-    }
-
-    public void assertBalance(int index, int expectedBalance) {
-        int actualBalance = getBalance(index);
-        assertEquals(expectedBalance, actualBalance);
     }
 }
