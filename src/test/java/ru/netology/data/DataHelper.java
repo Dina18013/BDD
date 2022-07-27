@@ -12,7 +12,7 @@ public class DataHelper {
         }
 
     public static AuthInfo getAuthInfo() {
-       return new AuthInfo("vasya", "123qwerty");
+       return new AuthInfo("vasya", "qwerty123");
     }
 
     public static AuthInfo getOtherAuthInfo(AuthInfo original) {

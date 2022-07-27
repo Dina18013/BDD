@@ -35,8 +35,8 @@ public class TransferTest {
         int cardToBalance = dashboardPage.getFirstCardBalance();
         int cardFromBalance = dashboardPage.getSecondCardBalance();
 
-        int cardToExpectedBalance = 10300;
-        int cardFromExpectedBalance = 9700;
+        int cardToExpectedBalance = 10_300;
+        int cardFromExpectedBalance = 9_700;
 
         assertEquals(cardToExpectedBalance, cardToBalance);
         assertEquals(cardFromExpectedBalance, cardFromBalance);
@@ -53,8 +53,8 @@ public class TransferTest {
         int cardToBalance = dashboardPage.getFirstCardBalance();
         int cardFromBalance = dashboardPage.getSecondCardBalance();
 
-        int cardToExpectedBalance = 1000;
-        int cardFromExpectedBalance = 1000;
+        int cardToExpectedBalance = 10_000;
+        int cardFromExpectedBalance = 10_000;
 
         assertEquals(cardToExpectedBalance, cardToBalance);
         assertEquals(cardFromExpectedBalance, cardFromBalance);
