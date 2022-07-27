@@ -46,7 +46,7 @@ public class TransferTest {
     @Test
     public void shouldTransfer300Back() {
         DashboardPage dashboardPage = new DashboardPage();
-        TransferPage transferPage = dashboardPage.chooseCardTo(0);
+        TransferPage transferPage = dashboardPage.chooseCardTo(1);
 
         transferPage.transfer(300, "5559 0000 0000 0001");
 
