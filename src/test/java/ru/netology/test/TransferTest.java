@@ -14,6 +14,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TransferTest {
 
+    DataHelper authInfo;
+    DashboardPage dashboardPage;
+
+
     @BeforeEach
     public void auth() {
         open("http://localhost:9999/");
@@ -26,37 +30,35 @@ public class TransferTest {
 
 
     @Test
-    public void shouldTransfer300To() {
+    public void shouldTransferFromSecondToFirstCard() {
         DashboardPage dashboardPage = new DashboardPage();
         TransferPage transferPage = dashboardPage.chooseCardTo(0);
 
-        transferPage.transfer(300, "5559 0000 0000 0002");
+        transferPage.transfer(authInfo, 3_000, 1);
 
-        int cardToBalance = dashboardPage.getFirstCardBalance();
-        int cardFromBalance = dashboardPage.getSecondCardBalance();
+        dashboardPage.assertBalance(0, 13_000);
+        dashboardPage.assertBalance(1, 7_000);
 
-        int cardToExpectedBalance = 10_300;
-        int cardFromExpectedBalance = 9_700;
+        dashboardPage.chooseCardTo(1);
 
-        assertEquals(cardToExpectedBalance, cardToBalance);
-        assertEquals(cardFromExpectedBalance, cardFromBalance);
+        dashboardPage.assertBalance(0, 10_000);
+        dashboardPage.assertBalance(1, 10_000);
     }
 
-
     @Test
-    public void shouldTransfer300Back() {
+    public void shouldTransferFromFirstToSecondCard() {
         DashboardPage dashboardPage = new DashboardPage();
         TransferPage transferPage = dashboardPage.chooseCardTo(1);
 
-        transferPage.transfer(300, "5559 0000 0000 0001");
+        transferPage.transfer(authInfo, 3_000, 0);
 
-        int cardToBalance = dashboardPage.getFirstCardBalance();
-        int cardFromBalance = dashboardPage.getSecondCardBalance();
+        dashboardPage.assertBalance(1, 13_000);
+        dashboardPage.assertBalance(0, 7_000);
 
-        int cardToExpectedBalance = 10_000;
-        int cardFromExpectedBalance = 10_000;
+        dashboardPage.chooseCardTo(0);
 
-        assertEquals(cardToExpectedBalance, cardToBalance);
-        assertEquals(cardFromExpectedBalance, cardFromBalance);
+        dashboardPage.assertBalance(1, 10_000);
+        dashboardPage.assertBalance(0, 10_000);
     }
 }
+

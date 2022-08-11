@@ -1,6 +1,8 @@
 package ru.netology.page;
 
 import com.codeborne.selenide.SelenideElement;
+import ru.netology.data.DataHelper;
+
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
 
@@ -11,9 +13,9 @@ public class TransferPage {
     private SelenideElement topUp = $("[data-test-id='action-transfer']");
     private SelenideElement cancelButton = $("[data-test-id='action-cancel']");
 
-    public void transfer(int amount, String cardFrom) {
+    public void transfer(DataHelper authInfo, int amount, int indexCardFrom) {
         sum.setValue(String.valueOf(amount));
-        from.setValue(cardFrom);
+        from.setValue(authInfo.getCard(indexCardFrom));
         topUp.click();
     }
 }
