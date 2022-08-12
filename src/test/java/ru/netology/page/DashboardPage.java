@@ -22,7 +22,7 @@ public class DashboardPage {
 
     public int getBalance(int index) {
         refreshButton.click();
-        String[] card = cards.get(index).toString().split("");
+        String[] card = cards.get(index).toString().split(" ");
         int balance = valueOf(card[6]);
         return balance;
     }

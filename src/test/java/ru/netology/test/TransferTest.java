@@ -40,6 +40,7 @@ public class TransferTest {
         dashboardPage.assertBalance(1, 7_000);
 
         dashboardPage.chooseCardTo(1);
+        transferPage.transfer(authInfo, 3_000, 0);
 
         dashboardPage.assertBalance(0, 10_000);
         dashboardPage.assertBalance(1, 10_000);
@@ -56,6 +57,7 @@ public class TransferTest {
         dashboardPage.assertBalance(0, 7_000);
 
         dashboardPage.chooseCardTo(0);
+        transferPage.transfer(authInfo, 3_000, 1);
 
         dashboardPage.assertBalance(1, 10_000);
         dashboardPage.assertBalance(0, 10_000);
